@@ -46,6 +46,27 @@ public class ProdutosDAO {
     
     public ArrayList<ProdutosDTO> listarProdutos(){
         
+        conn = new conectaDAO().connectDB();
+        
+        String sql = "SELECT * FROM produtos";
+        
+        try{
+            PreparedStatement prep = conn.prepareStatement(sql);
+            ResultSet res = prep.executeQuery();
+            
+            while(res.next()){
+                ProdutosDTO p = new ProdutosDTO();
+                
+                p.setId(res.getInt("id"));
+                p.setNome(res.getString("nome"));
+                p.setValor(res.getInt("valor"));
+                p.setStatus(res.getString("status"));
+                
+                listagem.add(p);
+            }
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null, "Erro ao listar os registros do banco de dados.");
+        }
         return listagem;
     }
     
