@@ -1,5 +1,6 @@
 
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /*
@@ -140,7 +141,7 @@ public class listagemVIEW extends javax.swing.JFrame {
         
         ProdutosDAO produtosdao = new ProdutosDAO();
         
-        //produtosdao.venderProduto(Integer.parseInt(id));
+        produtosdao.venderProduto(Integer.parseInt(id));
         listarProdutos();
     }//GEN-LAST:event_btnVenderActionPerformed
 
@@ -221,5 +222,13 @@ public class listagemVIEW extends javax.swing.JFrame {
         } catch (Exception e) {
         }
     
+    }
+    
+    private int getPosicao() {
+        int posicao = listaProdutos.getSelectedRow();
+        if(posicao <= -1) {
+            JOptionPane.showMessageDialog(null, "Selecione um item.");
+        }     
+        return Integer.parseInt( (String) listaProdutos.getValueAt(posicao, 0) );
     }
 }

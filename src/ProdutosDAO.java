@@ -13,6 +13,7 @@ import java.sql.Connection;
 import javax.swing.JOptionPane;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.sql.SQLException;
 
 
 public class ProdutosDAO {
@@ -70,7 +71,24 @@ public class ProdutosDAO {
         return listagem;
     }
     
-    
+    public void venderProduto(int id) {
+        
+        conn = new conectaDAO().connectDB();
+  
+        String sql = "UPDATE produtos SET status='Vendido' WHERE id=?;";
+
+        try {
+            PreparedStatement prep = conn.prepareStatement(sql);
+           
+            prep.setInt(1,id);
+            
+            prep.executeUpdate();
+           
+        }catch(SQLException e) {
+            System.out.println("Erro ao buscar o registro do banco de dados");
+            
+        }
+    }
     
         
 }
